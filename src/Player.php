@@ -6,11 +6,13 @@ namespace PHPlayer;
 
 use ReflectionClass;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 
 use function array_search;
+use function assert;
 use function file_get_contents;
 use function json_decode;
 use function preg_match;
@@ -22,16 +24,16 @@ final class Player extends Command
 {
     private string $genre;
 
-    private int $musicTime;
-
     protected static $defaultName = 'default';
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln(ASCII\Art::intro());
 
-        $helper    = $this->getHelper('question');
-        $question  = new Question('> ', '?');
+        $helper = $this->getHelper('question');
+        assert($helper instanceof QuestionHelper);
+        $question = new Question('> ', '?');
+        $question->setAutocompleterValues(['play', 'next', 'clear', 'exit', 'genres']);
         $userInput = $helper->ask($input, $output, $question);
 
         if ($userInput === 'genres') {
@@ -39,14 +41,14 @@ final class Player extends Command
         } elseif (preg_match('/play ([\w]+)/', $userInput, $genre)) {
             $reflactor = new ReflectionClass(new Genres\Allowed());
 
-            if (array_search($genre[1], $reflactor->getConstants()) !== false) {
+            if (array_search($genre[1], $reflactor->getConstants(), false) !== false) {
                 $this->genre = $genre[1];
-                $this->playMusic($genre[1]);
+                $this->playMusic($output, $genre[1]);
             } else {
                 $output->writeln('<info>• I\'m sorry Dave, genre not found. </info>');
             }
         } elseif ($userInput === 'next') {
-            $this->playMusic($this->genre);
+            $this->playMusic($output, $this->genre);
         } elseif ($userInput === 'clear') {
             `clear`;
         } elseif ($userInput === 'exit') {
@@ -56,7 +58,7 @@ final class Player extends Command
         return $this->execute($input, $output);
     }
 
-    protected function playMusic($genre)
+    protected function playMusic(OutputInterface $output, $genre)
     {
         $info   = json_decode(file_get_contents('https://cmd.to/api/v1/apps/fm/genres/' . $genre . '?limit=1'));
         $stream = $info[0]->stream_url;
