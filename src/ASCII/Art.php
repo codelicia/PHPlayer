@@ -42,8 +42,8 @@ EOS;
          return <<< EOS
 
 Available genres
---------------------------------------------------------------------------------
-<comment>80s                 Acid Jazz           Acoustic
+--------------------------------------------------------------------------------<comment>
+80s                 Acid Jazz           Acoustic
 Acoustic Rock       African             Alternative         Ambient
 Americana           Arabic              Avantgarde          Bachata
 Bhangra             Blues               Blues Rock          Bossa Nova          
@@ -68,8 +68,8 @@ Reggae              Reggaeton           Riddim              Rock
 Rock 'n' Roll       Salsa               Samba               Shoegaze
 Singer / Songwriter Smooth Jazz         Soul                Synth Pop
 Tech House          Techno              Thrash Metal        Trance
-Trap                Trip-hop            Turntablism       </comment>
-
+Trap                Trip-hop            Turntablism
+</comment>
 --------------------------------------------------------------------------------
 Use 'play' command to listen. Example: 'play chillout'
 EOS;

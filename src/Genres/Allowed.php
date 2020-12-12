@@ -39,6 +39,7 @@ final class Allowed
     public const FOLK            = 'Folk';
     public const FUNK            = 'Funk';
     public const GOSPEL          = 'Gospel';
+    public const SALSA           = 'Salsa';
     public const GRIME           = 'Grime';
     public const GRINDCORE       = 'Grindcore';
     public const JPOP            = 'J-Pop';

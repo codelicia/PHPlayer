@@ -33,22 +33,31 @@ final class Player extends Command
         $helper = $this->getHelper('question');
         assert($helper instanceof QuestionHelper);
         $question = new Question('> ', '?');
-        $question->setAutocompleterValues(['play', 'next', 'clear', 'exit', 'genres']);
+        $question->setAutocompleterValues(['play', 'next', 'pause', 'prev', 'stop', 'clear', 'exit', 'genres']);
         $userInput = $helper->ask($input, $output, $question);
 
         if ($userInput === 'genres') {
             $output->writeln((new ASCII\Art())->genresList());
-        } elseif (preg_match('/play ([\w]+)/', $userInput, $genre)) {
+        } elseif (preg_match('/play ([\w\-]+)/', $userInput, $genre)) {
             $reflactor = new ReflectionClass(new Genres\Allowed());
 
             if (array_search($genre[1], $reflactor->getConstants(), false) !== false) {
                 $this->genre = $genre[1];
                 $this->playMusic($output, $genre[1]);
             } else {
-                $output->writeln('<info>• I\'m sorry Dave, genre not found. </info>');
+                $output->writeln('<info>• I\'m sorry, genre not found. </info>');
             }
+        } elseif (preg_match('/play$/', $userInput)) {
+            $output->writeln('unpausing the song');
+            `osascript -e 'tell application "Music"
+                play
+            end tell'`;
         } elseif ($userInput === 'next') {
             $this->playMusic($output, $this->genre);
+        } elseif ($userInput === 'stop') {
+            `osascript -e 'tell application "Music"
+                stop
+            end tell'`;
         } elseif ($userInput === 'clear') {
             `clear`;
         } elseif ($userInput === 'exit') {
@@ -64,6 +73,11 @@ final class Player extends Command
         $stream = $info[0]->stream_url;
 
         $output->writeln('Playing: ' . $info[0]->title);
+
+        // Because of a bug on iTunes, we should stop the music before playing another one
+        `osascript -e 'tell application "Music"
+            stop
+        end tell'`;
 
         // Or Itunes
         `osascript -e 'tell application "Music"
