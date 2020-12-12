@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PHPlayer\MusicPlayer\Player;
 
 final class Itunes implements MusicPlayer

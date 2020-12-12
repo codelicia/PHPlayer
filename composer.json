@@ -18,12 +18,11 @@
   "config": {
     "sort-packages": true
   },
-  "minimum-stability": "dev",
   "require": {
-    "php": ">=8.0",
+    "php": "^7.0",
     "ext-json": "*",
-    "symfony/console": ">=5.2.x-dev",
-    "laminas/laminas-http": "^2.14"
+    "symfony/console": "^5.0",
+    "laminas/laminas-http": "^2.0"
   },
   "require-dev": {
     "doctrine/coding-standard": "^8.2.0",

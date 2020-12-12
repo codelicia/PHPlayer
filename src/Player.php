@@ -4,11 +4,19 @@ declare(strict_types=1);
 
 namespace PHPlayer;
 
-use PHPlayer\MusicPlayer\Player\MusicPlayer;
+use ReflectionClass;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
+
+use function array_search;
+use function file_get_contents;
+use function json_decode;
+use function preg_match;
+use function sleep;
+use function sprintf;
+use function trim;
 
 final class Player extends Command
 {
@@ -22,27 +30,26 @@ final class Player extends Command
     {
         $output->writeln(ASCII\Art::intro());
 
-        $helper = $this->getHelper('question');
-        $question = new Question('> ', '?');
+        $helper    = $this->getHelper('question');
+        $question  = new Question('> ', '?');
         $userInput = $helper->ask($input, $output, $question);
 
-        if ('genres' == $userInput) {
+        if ($userInput === 'genres') {
             $output->writeln((new ASCII\Art())->genresList());
         } elseif (preg_match('/play ([\w]+)/', $userInput, $genre)) {
+            $reflactor = new ReflectionClass(new Genres\Allowed());
 
-            $reflactor = new \ReflectionClass(new Genres\Allowed);
-
-            if (false !== array_search($genre[1], $reflactor->getConstants())) {
+            if (array_search($genre[1], $reflactor->getConstants()) !== false) {
                 $this->genre = $genre[1];
                 $this->playMusic($genre[1]);
             } else {
                 $output->writeln('<info>• I\'m sorry Dave, genre not found. </info>');
             }
-        } elseif ('next' == $userInput) {
+        } elseif ($userInput === 'next') {
             $this->playMusic($this->genre);
-        } elseif ('clear' == $userInput) {
+        } elseif ($userInput === 'clear') {
             `clear`;
-        } elseif ('exit' == $userInput) {
+        } elseif ($userInput === 'exit') {
             return 1;
         }
 
@@ -51,7 +58,7 @@ final class Player extends Command
 
     protected function playMusic($genre)
     {
-        $info = json_decode(file_get_contents('https://cmd.to/api/v1/apps/fm/genres/' . $genre . '?limit=1'));
+        $info   = json_decode(file_get_contents('https://cmd.to/api/v1/apps/fm/genres/' . $genre . '?limit=1'));
         $stream = $info[0]->stream_url;
 
         $output->writeln('Playing: ' . $info[0]->title);
@@ -66,11 +73,11 @@ final class Player extends Command
         // Wait to get status. Probably can do it with osascript as well
         sleep(2);
 
-        $time = `osascript -e 'tell application "Music" to time of current track as string'`;
+        $time     = `osascript -e 'tell application "Music" to time of current track as string'`;
         $duration = `osascript -e 'tell application "Music" to duration of current track as string'`;
         $position = `osascript -e 'tell application "Music" to player position as string'`;
 
-        $output->writeln(\sprintf('Time: %s - Duration: %s - Position: %s', trim($time), trim($duration), trim($position)));
+        $output->writeln(sprintf('Time: %s - Duration: %s - Position: %s', trim($time), trim($duration), trim($position)));
         $output->writeln('<info>Playing track.</info>');
     }
 }

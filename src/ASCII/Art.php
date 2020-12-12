@@ -1,16 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PHPlayer\ASCII;
 
 final class Art
 {
     private static bool $introIsShowed = false;
-    
+
     public static function intro()
     {
-        if (false === self::$introIsShowed) {
+        if (self::$introIsShowed === false) {
             self::$introIsShowed = true;
-        return <<< EOS
+
+            return <<< EOS
 
 ______ _   _ ______ _
 | ___ \ | | || ___ \ |
@@ -32,42 +35,41 @@ Inspired by cmf.fm ⚒ (http://cmd.fm)
 
 EOS;
         }
-        
     }
-    
+
     public function genresList()
     {
          return <<< EOS
 
 Available genres
 --------------------------------------------------------------------------------
-<comment>80s                 Acid Jazz           Acoustic            
-Acoustic Rock       African             Alternative         Ambient             
-Americana           Arabic              Avantgarde          Bachata             
+<comment>80s                 Acid Jazz           Acoustic
+Acoustic Rock       African             Alternative         Ambient
+Americana           Arabic              Avantgarde          Bachata
 Bhangra             Blues               Blues Rock          Bossa Nova          
-Chanson             Chillout            Chiptunes           Choir               
+Chanson             Chillout            Chiptunes           Choir          
 Classic Rock        Classical           Classical Guitar    Contemporary        
-Country             Cumbia              Dance               Dancehall           
-Death Metal         Dirty South         Disco               Dream Pop           
+Country             Cumbia              Dance               Dancehall
+Death Metal         Dirty South         Disco               Dream Pop
 Drum & Bass         Dub                 Dubstep             Easy Listening      
-Electro House       Electronic          Electronic Pop      Electronic Rock     
+Electro House       Electronic          Electronic Pop      Electronic Rock
 Folk                Folk Rock           Funk                Glitch              
-Gospel              Grime               Grindcore           Grunge              
-Hard Rock           Hardcore            Heavy Metal         Hip-Hop             
-House               Indie               Indie Pop           Industrial Metal    
-Instrumental Rock   J-Pop               Jazz                Jazz Funk           
-Jazz Fusion         K-Pop               Latin               Latin Jazz          
-Mambo               Metalcore           Middle Eastern      Minimal             
-Modern Jazz         Moombahton          New Wave            Nu Jazz             
-Opera               Orchestral          Piano               Pop                 
-Post Hardcore       Post Rock           Progressive House   Progressive Metal   
-Progressive Rock    Punk                R&B                 Rap                 
-Reggae              Reggaeton           Riddim              Rock                
-Rock 'n' Roll       Salsa               Samba               Shoegaze            
-Singer / Songwriter Smooth Jazz         Soul                Synth Pop           
-Tech House          Techno              Thrash Metal        Trance              
-Trap                Trip-hop            Turntablism       </comment>  
- 
+Gospel              Grime               Grindcore           Grunge
+Hard Rock           Hardcore            Heavy Metal         Hip-Hop
+House               Indie               Indie Pop           Industrial Metal
+Instrumental Rock   J-Pop               Jazz                Jazz Funk
+Jazz Fusion         K-Pop               Latin               Latin Jazz
+Mambo               Metalcore           Middle Eastern      Minimal
+Modern Jazz         Moombahton          New Wave            Nu Jazz
+Opera               Orchestral          Piano               Pop
+Post Hardcore       Post Rock           Progressive House   Progressive Metal
+Progressive Rock    Punk                R&B                 Rap
+Reggae              Reggaeton           Riddim              Rock
+Rock 'n' Roll       Salsa               Samba               Shoegaze
+Singer / Songwriter Smooth Jazz         Soul                Synth Pop
+Tech House          Techno              Thrash Metal        Trance
+Trap                Trip-hop            Turntablism       </comment>
+
 --------------------------------------------------------------------------------
 Use 'play' command to listen. Example: 'play chillout'
 EOS;
