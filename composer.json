@@ -1,0 +1,40 @@
+{
+  "name": "codelicia/phplayer",
+  "type": "project",
+  "description": "A simple music player writing in php, based on http://cmd.fm",
+  "license": "MIT",
+  "keywords": [
+    "player",
+    "console",
+    "terminal"
+  ],
+  "homepage": "https://github.com/codelicia/PHPlayer",
+  "authors": [
+    {
+      "name": "Jefersson Nathan",
+      "email": "malukenho.dev@gmail.com"
+    }
+  ],
+  "config": {
+    "sort-packages": true
+  },
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=8.0",
+    "ext-json": "*",
+    "symfony/console": ">=5.2.x-dev",
+    "laminas/laminas-http": "^2.14"
+  },
+  "require-dev": {
+    "roave/security-advisories": "dev-master",
+    "doctrine/coding-standard": "^8.2.0",
+    "infection/infection": "^0.20.2",
+    "staabm/annotate-pull-request-from-checkstyle": "^1.4.0",
+    "phpunit/phpunit": "^9.4.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "PHPlayer\\": "src/"
+    }
+  }
+}
