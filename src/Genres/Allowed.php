@@ -34,12 +34,13 @@ final class Allowed
     public const CUMBIA          = 'Cumbia';
     public const DANCE           = 'Dance';
     public const DANCEHALL       = 'Dancehall';
-    public const DEATHMETAL      = 'Death Metal';
+    public const DEATH_METAL     = 'Death Metal';
     public const ELECTRONIC      = 'Electronic';
     public const FOLK            = 'Folk';
     public const FUNK            = 'Funk';
     public const GOSPEL          = 'Gospel';
     public const SALSA           = 'Salsa';
+    public const HEAVY_METAL     = 'Heavy Metal';
     public const GRIME           = 'Grime';
     public const GRINDCORE       = 'Grindcore';
     public const JPOP            = 'J-Pop';
