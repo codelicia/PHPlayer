@@ -19,7 +19,7 @@
     "sort-packages": true
   },
   "require": {
-    "php": "^7.0",
+    "php": "^8.0",
     "ext-json": "*",
     "symfony/console": "^6.0",
     "laminas/laminas-http": "^2.0"
