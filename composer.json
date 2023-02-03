@@ -27,7 +27,7 @@
   "require-dev": {
     "doctrine/coding-standard": "^11.0.0",
     "infection/infection": "^0.26.0",
-    "phpunit/phpunit": "^9.4.4",
+    "phpunit/phpunit": "^10.0.0",
     "roave/security-advisories": "dev-master",
     "staabm/annotate-pull-request-from-checkstyle": "^1.4.0",
     "vimeo/psalm": "4.x-dev"
